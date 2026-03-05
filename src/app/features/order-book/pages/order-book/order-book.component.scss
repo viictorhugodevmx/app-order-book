@@ -1,0 +1,99 @@
+.orderbook-container {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.orderbook {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.asks, .bids {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.level-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.depth {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.18;
+}
+
+.depth-sell { background: #e53935; }
+.depth-buy { background: #43a047; }
+
+.price {
+  font-weight: 700;
+  z-index: 1;
+}
+
+.size {
+  text-align: right;
+  color: #475569;
+  z-index: 1;
+}
+
+.sell { color: #e53935; }
+.buy { color: #43a047; }
+
+.spread-row {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 8px 0 0;
+  padding: 10px 12px;
+
+  background: #0f172a;
+  color: #e5e7eb;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.spread-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.midprice-row {
+
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 6px;
+  padding: 10px 12px;
+
+  background: #111827;
+  color: #e5e7eb;
+
+  border-radius: 10px;
+
+  font-weight: 600;
+
+}
+
+.midprice-value {
+
+  color: #22c55e;
+  font-variant-numeric: tabular-nums;
+
+}

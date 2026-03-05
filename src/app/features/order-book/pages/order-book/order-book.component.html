@@ -1,0 +1,65 @@
+<div class="orderbook-container">
+
+  <h2>Order Book</h2>
+
+  <div class="orderbook">
+
+      <!-- ASKS -->
+      <div class="asks">
+
+        <h3>Sell Orders</h3>
+
+        <div class="level-row" *ngFor="let ask of orderBook?.asks">
+
+          <div
+            class="depth depth-sell"
+            [style.width]="depthWidth(ask.size, maxAskSize)">
+          </div>
+
+          <span class="price sell">{{ ask.price }}</span>
+          <span class="size">{{ ask.size }}</span>
+
+        </div>
+
+      </div>
+
+      <div class="spread-row" *ngIf="spread !== null">
+        <span>Spread</span>
+        <span class="spread-value">{{ spread }}</span>
+      </div>
+
+      <div class="midprice-row" *ngIf="midPrice !== null">
+
+        <span>Mid Price</span>
+
+        <span class="midprice-value">
+
+          {{ midPrice }}
+
+        </span>
+
+      </div>
+
+      <!-- BIDS -->
+
+      <div class="bids">
+
+        <h3>Buy Orders</h3>
+
+        <div class="level-row" *ngFor="let bid of orderBook?.bids">
+
+          <div
+            class="depth depth-buy"
+            [style.width]="depthWidth(bid.size, maxBidSize)">
+          </div>
+
+          <span class="price buy">{{ bid.price }}</span>
+          <span class="size">{{ bid.size }}</span>
+
+        </div>
+
+      </div>
+
+  </div>
+
+</div>
