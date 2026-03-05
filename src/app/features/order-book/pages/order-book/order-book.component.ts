@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common'
 
 import { OrderBookService } from '../../../../core/services/order-book.service'
 import { OrderBook } from '../../../../shared/models/order-book.model'
-
+import { TradeService } from '../../../../core/services/trade.service'
+import { Trade } from '../../../../shared/models/trade.model';
 @Component({
   selector: 'app-order-book',
   standalone: true,
@@ -14,6 +15,7 @@ import { OrderBook } from '../../../../shared/models/order-book.model'
 export class OrderBookComponent implements OnInit {
 
   orderBook?: OrderBook
+  trades: Trade[] = []
 
   get bestAsk(): number | null {
     const asks = this.orderBook?.asks
@@ -50,17 +52,98 @@ export class OrderBookComponent implements OnInit {
     return bids.reduce((max, x) => Math.max(max, x.size), 0) || 1
   }
 
+  get totalBidSize(): number {
+
+    const bids = this.orderBook?.bids ?? []
+
+    return bids.reduce((sum, level) => sum + level.size, 0)
+
+  }
+
+  get totalAskSize(): number {
+
+    const asks = this.orderBook?.asks ?? []
+
+    return asks.reduce((sum, level) => sum + level.size, 0)
+
+  }
+
+  get buyPressure(): number {
+
+    const total = this.totalBidSize + this.totalAskSize
+
+    if (!total) return 0
+
+    return Math.round((this.totalBidSize / total) * 100)
+
+  }
+
+  get sellPressure(): number {
+
+    const total = this.totalBidSize + this.totalAskSize
+
+    if (!total) return 0
+
+    return Math.round((this.totalAskSize / total) * 100)
+
+  }
+
+  get ladderLevels() {
+
+    if (!this.orderBook) return []
+
+    const asks = this.orderBook.asks.map(a => ({
+      price: a.price,
+      size: a.size,
+      side: 'sell'
+    }))
+
+    const bids = this.orderBook.bids.map(b => ({
+      price: b.price,
+      size: b.size,
+      side: 'buy'
+    }))
+
+    const levels = [...asks, ...bids]
+
+    return levels.sort((a, b) => b.price - a.price)
+
+  }
+
   depthWidth(size: number, max: number): string {
     const pct = Math.min(100, Math.max(0, (size / max) * 100))
     return `${pct}%`
   }
 
-  constructor(private orderBookService: OrderBookService) {}
+  depthOpacity(size: number, max: number): number {
+
+    if (!max) return 0
+
+    const ratio = size / max
+
+    return Math.min(0.6, Math.max(0.08, ratio))
+
+  }
+
+  constructor(
+    private orderBookService: OrderBookService,
+    private tradeService: TradeService
+  ) {}
 
   ngOnInit(): void {
 
     this.orderBookService.getOrderBook().subscribe(book => {
       this.orderBook = book
+    })
+
+    this.tradeService.getTrades().subscribe(trade => {
+
+      this.trades.unshift(trade)
+
+      if (this.trades.length > 20) {
+        this.trades.pop()
+      }
+
     })
 
   }

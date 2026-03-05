@@ -2,6 +2,44 @@
 
   <h2>Order Book</h2>
 
+  <div class="imbalance">
+
+    <div class="imbalance-title">
+      Order Book Imbalance
+    </div>
+
+    <div class="imbalance-bars">
+
+      <div class="imbalance-buy">
+
+        <div
+          class="bar buy-bar"
+          [style.width.%]="buyPressure">
+        </div>
+
+        <span>
+          BUY {{ buyPressure }}%
+        </span>
+
+      </div>
+
+      <div class="imbalance-sell">
+
+        <div
+          class="bar sell-bar"
+          [style.width.%]="sellPressure">
+        </div>
+
+        <span>
+          SELL {{ sellPressure }}%
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <div class="orderbook">
 
       <!-- ASKS -->
@@ -9,15 +47,23 @@
 
         <h3>Sell Orders</h3>
 
-        <div class="level-row" *ngFor="let ask of orderBook?.asks">
+        <div
+          class="level-row"
+          *ngFor="let ask of orderBook?.asks">
 
           <div
             class="depth depth-sell"
-            [style.width]="depthWidth(ask.size, maxAskSize)">
+            [style.width]="depthWidth(ask.size, maxAskSize)"
+            [style.opacity]="depthOpacity(ask.size, maxAskSize)">
           </div>
 
-          <span class="price sell">{{ ask.price }}</span>
-          <span class="size">{{ ask.size }}</span>
+          <span class="price sell">
+            {{ ask.price }}
+          </span>
+
+          <span class="size">
+            {{ ask.size }}
+          </span>
 
         </div>
 
@@ -46,19 +92,89 @@
 
         <h3>Buy Orders</h3>
 
-        <div class="level-row" *ngFor="let bid of orderBook?.bids">
+        <div
+          class="level-row"
+          *ngFor="let bid of orderBook?.bids">
 
           <div
             class="depth depth-buy"
-            [style.width]="depthWidth(bid.size, maxBidSize)">
+            [style.width]="depthWidth(bid.size, maxBidSize)"
+            [style.opacity]="depthOpacity(bid.size, maxBidSize)">
           </div>
 
-          <span class="price buy">{{ bid.price }}</span>
-          <span class="size">{{ bid.size }}</span>
+          <span class="price buy">
+            {{ bid.price }}
+          </span>
+
+          <span class="size">
+            {{ bid.size }}
+          </span>
 
         </div>
 
       </div>
+
+  </div>
+
+  <div class="trade-tape">
+
+    <h3>Live Trades</h3>
+
+    <div *ngFor="let trade of trades" class="trade-row">
+
+      <span
+      class="trade-side"
+      [ngClass]="trade.side">
+
+        {{ trade.side.toUpperCase() }}
+
+      </span>
+
+      <span class="trade-price">
+
+        {{ trade.price }}
+
+      </span>
+
+      <span class="trade-size">
+
+        {{ trade.size }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="price-ladder">
+
+    <h3>Price Ladder</h3>
+
+    <div
+      class="ladder-row"
+      *ngFor="let level of ladderLevels">
+
+      <div
+        class="ladder-depth"
+        [style.width]="depthWidth(level.size, 2)"
+        [class.buy]="level.side === 'buy'"
+        [class.sell]="level.side === 'sell'">
+      </div>
+
+      <span class="ladder-price">
+        {{ level.price }}
+      </span>
+
+      <span
+        class="ladder-size"
+        [class.buy]="level.side === 'buy'"
+        [class.sell]="level.side === 'sell'">
+
+        {{ level.size }}
+
+      </span>
+
+    </div>
 
   </div>
 

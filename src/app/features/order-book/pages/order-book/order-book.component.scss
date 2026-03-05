@@ -97,3 +97,189 @@
   font-variant-numeric: tabular-nums;
 
 }
+
+.trade-tape {
+
+  margin-top: 30px;
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+
+}
+
+.trade-row {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 4px 0;
+
+}
+
+.trade-side.buy {
+
+  color: #22c55e;
+  font-weight: bold;
+
+}
+
+.trade-side.sell {
+
+  color: #ef4444;
+  font-weight: bold;
+
+}
+
+.level-row {
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  overflow: hidden;
+
+}
+
+.depth {
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+}
+
+.depth-sell {
+
+  background: #ef4444;
+
+}
+
+.depth-buy {
+
+  background: #22c55e;
+
+}
+
+.imbalance {
+
+  margin-bottom: 20px;
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+
+}
+
+.imbalance-title {
+
+  font-weight: 600;
+  margin-bottom: 10px;
+
+}
+
+.imbalance-bars {
+
+  display: grid;
+  gap: 8px;
+
+}
+
+.imbalance-buy,
+.imbalance-sell {
+
+  position: relative;
+  background: #f1f5f9;
+  height: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+
+}
+
+.bar {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+}
+
+.buy-bar {
+
+  background: #22c55e;
+
+}
+
+.sell-bar {
+
+  background: #ef4444;
+
+}
+
+.imbalance span {
+
+  position: relative;
+  padding-left: 8px;
+  font-size: 13px;
+
+}
+
+.price-ladder {
+
+  margin-top: 30px;
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+
+}
+
+.ladder-row {
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px 0;
+  overflow: hidden;
+
+}
+
+.ladder-depth {
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.15;
+
+}
+
+.ladder-depth.buy {
+
+  background: #22c55e;
+
+}
+
+.ladder-depth.sell {
+
+  background: #ef4444;
+
+}
+
+.ladder-price {
+
+  font-weight: 600;
+
+}
+
+.ladder-size.buy {
+
+  color: #22c55e;
+
+}
+
+.ladder-size.sell {
+
+  color: #ef4444;
+
+}
